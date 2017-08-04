@@ -3,7 +3,10 @@
 using namespace std;
 
 void rotate(vector<int> &arr,int n,int d){
-   int first=a[0], i=0, index;
+    /*  time complexity O(n)
+        spcae complexity O(1)
+    */
+    int first=a[0], i=0, index;
     while(1) {
         index = (i+d)%n;
         if(!index) {
