@@ -12,7 +12,7 @@ int gcd(int a,int b)
 
 void rotate(vector<int> &arr,int n,int d){
     /*  time complexity O(n)
-        spcae complexity O(1)
+        spcae complexity O(1) 
     */
     int i, j, k, temp;
     for (i = 0; i < gcd(d, n); i++)
