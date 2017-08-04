@@ -17,7 +17,7 @@ void rotate(vector<int> &arr,int n,int d){
     int i, j, k, temp;
     for (i = 0; i < gcd(d, n); i++)
     {
-    /* move i-th values of blocks */
+   
     temp = arr[i];
     j = i;
     while(1)
