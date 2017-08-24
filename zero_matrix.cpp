@@ -16,7 +16,7 @@ void nullfy_col(vector< vector<int> > &matrix,int col,int m){
 }
 
 void zero_matrix(vector< vector<int> > &matrix,int m, int n){
-
+	//cout<<matrix.size()<<endl;
 	int is_col_zero=0,is_row_zero=0;
 	for(int i=0;i<m;++i){
 		if(matrix[i][0]==0){
@@ -36,13 +36,13 @@ void zero_matrix(vector< vector<int> > &matrix,int m, int n){
 			}
 		}
 	}
-	for(int i=0;i<m;++i){
+	for(int i=1;i<m;++i){
 		if(matrix[i][0]==0){
 			nullfy_row(matrix,i,n);
 		}
 	}
 	
-	for(int i=0;i<n;++i){
+	for(int i=1;i<n;++i){
 		if(matrix[0][i]==0){
 			nullfy_col(matrix,i,m);
 		}
