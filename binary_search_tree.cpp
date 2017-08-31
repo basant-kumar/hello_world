@@ -1,6 +1,9 @@
 #include<iostream>
 #include<cstdlib>
 #include<queue>
+#include<climits>
+#include<cmath>
+#include<algorithm>
 
 using namespace std;
 
@@ -18,8 +21,11 @@ class BST{
 	void in_order(node *root);
 	void pre_order(node *root);
 	void post_order(node *root);
-	void print_level_order(node *root);
-	
+	void print_level_order(node *root);;
+	bool is_balanced(node *root);
+	int check_height(node *root);
+	int get_height(node *root);
+	bool is_tree_BST(node *root, int min, int max);
 
 public:
 	BST();
@@ -32,6 +38,10 @@ public:
 	void pre_order();
 	void post_order();
 	void print_level_order();
+	bool is_balanced();
+	int get_height();
+	bool is_tree_BST();
+	
 
 };
 
@@ -207,6 +217,64 @@ void BST::print_level_order(){
 	print_level_order(root);
 }
 
+int BST::check_height(node *node){
+	if(node==NULL){
+		return 0;
+	}
+
+	int left_height = check_height(node->left);
+	if(left_height==INT_MIN){
+		return INT_MIN;
+	}
+	int right_height = check_height(node->right);
+	if(right_height==INT_MIN){
+		return INT_MIN;
+	}
+	int height_diff= left_height - right_height;
+	if(height_diff>1){
+		return INT_MIN;
+	}
+	else{
+		return max(left_height, right_height) + 1;
+	}
+}
+
+bool BST::is_balanced(){
+	return is_balanced(root);
+}
+
+bool BST::is_balanced(node *node){
+	return check_height(node) != INT_MIN;
+}
+
+int BST::get_height(){
+	return get_height(root);
+}
+
+int BST::get_height(node *node){
+	if(node==NULL){
+		return 0;
+	}
+	return max( get_height(node->left), get_height(node->right) ) + 1;
+}
+
+bool BST::is_tree_BST(){
+	return is_tree_BST(root, INT_MIN, INT_MAX);
+}
+
+bool BST::is_tree_BST(node *node, int min, int max){
+	if(node==NULL){
+		return true;
+	}
+	if(min!=INT_MIN && node->data <= min || max!=INT_MAX && node->data > max){
+		return false;
+	}
+	if(!is_tree_BST(node->left, min, node->data) || !is_tree_BST(node->right, node->data, max)){
+		return false;
+	}
+	return true;
+}
+
 int main(){
 
 	BST bst;
@@ -225,6 +293,9 @@ int main(){
     node* res=bst.search(40);
     cout<<"Found the node with value: "<<res->data<<endl;
     bst.print_level_order();
+    cout<<"Is Balanced: "<<bst.is_balanced()<<endl;
+    cout<<"Height of BST is: "<<bst.get_height()<<endl;
+    cout<<"Is Tree BST: "<<bst.is_tree_BST()<<endl;
 
 	return 0;
 }
