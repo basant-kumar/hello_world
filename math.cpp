@@ -4,6 +4,7 @@
 #include<algorithm>
 #include<cmath>
 #include<utility>
+#include<climits>
 
 using namespace std;
 
@@ -31,6 +32,7 @@ public:
 	int euclid_gcd_recursive(int a, int b); //Complexity O(log(b)) + Space O(log(b))
 	long long power(int x, int y);
 	double power(float x, int y);
+	int divide(int divident, int divisor);
 
 };
 
@@ -258,6 +260,27 @@ double Math::power(float x, int y){
 	return res;
 }
 
+int Math::divide(int divident, int divisor){
+	long long n=divident;
+	long long m=divisor;
+	long long q=0;
+	int sign;
+	sign= (n<0 ^ m<0) ? -1 : 1;
+	n=abs(n);
+	m=abs(m);
+
+	for(long long t=0, i=31;i>=0;i--){
+		if(t+(m<<i) <=n){
+			t+=(m<<i);
+			q|=1LL<<i;
+		}
+	}
+	if(sign<0){
+		q=-q;
+	}
+	return q >= INT_MAX || q < INT_MIN ? INT_MIN : q;
+}
+
 int main(){
 
 	Math m;
@@ -270,6 +293,7 @@ int main(){
 	cout<<"gcd(400,124):"<<m.euclid_gcd(400, 124)<<endl;
 	cout<<"gcd(400,124):"<<m.euclid_gcd_recursive(400, 124)<<" using recursion"<<endl;
 	cout<<"power(6,6): "<<m.power(float(3),3)<<endl;
+	cout<<"divide(12,6): "<<m.divide(12,6)<<endl;
 
 	return 0;
 }
