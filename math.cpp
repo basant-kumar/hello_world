@@ -18,6 +18,7 @@ class Math{
 	void print_power_of_number(vector< pair<int, int> > &res);
 	long long power_recursive(int x, int y);
 	long long power_iterative(int x, int y);
+	int fibonacci_utils(int n, int *F);
 
 public:
 	Math();
@@ -33,6 +34,9 @@ public:
 	long long power(int x, int y);
 	double power(float x, int y);
 	int divide(int divident, int divisor);
+	int atoi(char *str);
+	int atoi(string &str);
+	int fibonacci(int n);
 
 };
 
@@ -128,7 +132,6 @@ void Math::print_all_prime_number(int n){
 
 void Math::print_all_factors_of_number(int n, vector<int> &res){
 
-	
 	if(n<2){
 		res.push_back(n);
 		return;
@@ -281,6 +284,86 @@ int Math::divide(int divident, int divisor){
 	return q >= INT_MAX || q < INT_MIN ? INT_MIN : q;
 }
 
+int Math::atoi(char *str){
+	long int result=0;
+	int digit=0;
+	int sign=0;
+
+	if(*str=='\0') return 0;
+
+	while(*str==' '){ str+=1; }
+
+	if(*str=='-'){ sign=1; str+=1; }
+	else if(*str=='+'){ str+=1; }
+
+	while(1){
+		digit=*str-'0';
+
+		if(result>INT_MAX && sign){ return INT_MIN; }
+		else if((sign==0) && result>=INT_MAX ){ return INT_MAX; }
+
+		if(digit<0 || digit>9) break;
+
+		result= result*10 + digit;
+
+		str+=1;
+	}
+	if(sign){ result=-result; }
+	return result;
+}
+
+int Math::atoi(string &str){
+	if(str.size()==0){ return 0;}
+
+	long int result=0;
+	int digit=0, sign=0;
+	int i=0;
+
+	while(isspace(str[i])){
+		i++;
+		if(i==str.size()){ return 0; }
+	} 
+
+	if(str[i]=='-'){ sign=1; i++;}
+	else if(str[i]=='+'){ i++; }
+
+	while(i<str.size()){
+		if(isdigit(str[i])){
+			result=result*10 + (str[i]-'0');
+		}
+		else{ break; }
+		if(sign && result >INT_MAX ){ return INT_MIN; }
+		else if((sign==0) && result>=INT_MAX){ return INT_MAX; } 
+		i++;
+	}
+	if(sign){ result=-result; }
+	return result;
+}
+
+int Math::fibonacci_utils(int n, int *F){
+	if(n==0){
+		return 0;
+	}
+	if(n==1||n==2){
+		return (F[n]=1);
+	}
+	if(F[n]){
+		return F[n];
+	}
+
+	int k=(n&1)? (n+1)/2: n/2;
+
+	F[n]=(n&1)? (fibonacci_utils(k,F)*fibonacci_utils(k,F) + fibonacci_utils(k-1,F)*fibonacci_utils(k-1,F)):
+				((2*fibonacci_utils(k-1,F) + fibonacci_utils(k,F))*fibonacci_utils(k,F));
+	return F[n];
+}
+
+int Math::fibonacci(int n){
+	const int MAX=1000;
+	int F[MAX]={0};
+	return fibonacci_utils(n, F);
+}
+
 int main(){
 
 	Math m;
@@ -294,6 +377,11 @@ int main(){
 	cout<<"gcd(400,124):"<<m.euclid_gcd_recursive(400, 124)<<" using recursion"<<endl;
 	cout<<"power(6,6): "<<m.power(float(3),3)<<endl;
 	cout<<"divide(12,6): "<<m.divide(12,6)<<endl;
+	char str[10]="12345";
+	string str1="123455";
+	cout<<"atoi(str):"<<m.atoi(str)<<endl;
+	cout<<"atoi(str1):"<<m.atoi(str1)<<endl;
+	cout<<"fib(3):"<<m.fibonacci(9)<<endl;
 
 	return 0;
 }
