@@ -4,8 +4,7 @@ using namespace std;
 const int ALPHABET_SIZE = 26;
  
 // trie node
-struct TrieNode
-{
+struct TrieNode{
     struct TrieNode *children[ALPHABET_SIZE];
  
     // isEndOfWord is true if the node represents
@@ -14,8 +13,7 @@ struct TrieNode
 };
  
 // Returns new trie node (initialized to NULLs)
-struct TrieNode *getNode(void)
-{
+struct TrieNode *getNode(void){
     struct TrieNode *pNode =  new TrieNode;
  
     pNode->isEndOfWord = false;
@@ -48,8 +46,7 @@ void insert(struct TrieNode *root, string key)
  
 // Returns true if key presents in trie, else
 // false
-bool search(struct TrieNode *root, string key)
-{
+bool search(struct TrieNode *root, string key){
     struct TrieNode *pCrawl = root;
  
     for (int i = 0; i < key.length(); i++)
