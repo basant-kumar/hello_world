@@ -1,12 +1,12 @@
 public class Account {
 
-    private int totalBalance = 12;
+    private double totalBalance =  0.0;
 
-    public void AddMoney(Integer amount) {
-
+    public void AddMoney(double amount) {
+        totalBalance = totalBalance + amount;
     }
 
-    public int getTotal() {
+    public double getTotal() {
         return totalBalance;
     }
 }
