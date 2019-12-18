@@ -9,4 +9,9 @@ public class Account {
     public double getTotal() {
         return totalBalance;
     }
+
+    public boolean TransferMoney(double amount) {
+        totalBalance = totalBalance - amount;
+        return true;
+    }
 }

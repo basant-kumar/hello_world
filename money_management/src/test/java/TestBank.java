@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestBank {
 
@@ -22,6 +23,14 @@ public class TestBank {
        assertEquals(10, account.getTotal(), 0);
     }
 
+    @Test
+    public void TestTransferMoneyMethod(){
+        Account account = new Account();
+        account.AddMoney(15);
+        double num = 5.0;
+        account.TransferMoney(num);
+        assertEquals(10,account.getTotal(),0);
 
+    }
 
 }
